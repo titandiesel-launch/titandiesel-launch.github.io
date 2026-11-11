@@ -1,5 +1,6 @@
 (function () {
   const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PORT = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   gsap.registerPlugin(ScrollTrigger);
 
@@ -66,7 +67,7 @@
       t1.from('.hero h1 .l > span', { yPercent: 110, duration: 1.4, ease: 'expo.out', stagger: .12 })
         .from('.hero .kick, .hero .row', { opacity: 0, y: 20, duration: 1.2, ease: 'power3.out', stagger: .1 }, .5);
       if (document.body.classList.contains('loading')) window.addEventListener('pre:done', () => t1.play(), { once: true }); else t1.play();
-      gsap.to('.hero video, .hero .poster', { scale: 1.12, yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+      if (!PORT) gsap.to('.hero video, .hero .poster', { scale: 1.12, yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
       gsap.to('.hero .in', { opacity: 0, y: -60, ease: 'none', scrollTrigger: { trigger: '.hero', start: '30% top', end: '90% top', scrub: true } });
     }
     const hv = $('#heroV'); if (hv) hv.play().catch(() => {});
@@ -75,7 +76,7 @@
   /* ---------- page header ---------- */
   if ($('.ph') && !RM) {
     gsap.from('.ph h1, .ph .lead, .ph .eyebrow', { opacity: 0, y: 40, duration: 1.2, ease: 'expo.out', stagger: .1, delay: .35 });
-    const bg = $('.ph .phbg'); if (bg) gsap.to(bg, { yPercent: 12, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.ph', start: 'top top', end: 'bottom top', scrub: true } });
+    const bg = $('.ph .phbg'); if (bg && !PORT) gsap.to(bg, { yPercent: 12, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.ph', start: 'top top', end: 'bottom top', scrub: true } });
   }
 
   /* ---------- generic reveals ---------- */
@@ -95,9 +96,9 @@
   /* ---------- chapter openers ---------- */
   $$('.chap').forEach(c => {
     if (RM) return;
-    gsap.fromTo(c.querySelector('.bgi'), { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'bottom top', scrub: true } });
+    if (!PORT) gsap.fromTo(c.querySelector('.bgi'), { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'bottom top', scrub: true } });
     if (c.classList.contains('first')) gsap.from(c.querySelectorAll('.in > *'), { opacity: 0, y: 40, duration: 1.2, ease: 'expo.out', stagger: .1, delay: .35 });
-    gsap.from(c.querySelector('.num'), { yPercent: 30, opacity: 0, duration: 1.4, ease: 'expo.out', delay: .5 });
+    gsap.from(c.querySelector('.num'), { y: 30, opacity: 0, duration: 1.4, ease: 'expo.out', delay: .5 });
   });
 
   /* ---------- scrollytelling: each step swaps the film and the caption ---------- */
@@ -197,10 +198,10 @@
   /* ---------- the night in one film ---------- */
   const fv = $('#filmV');
   $$('[data-film]').forEach(b => b.addEventListener('click', () => { $('#menu').classList.remove('open'); if (!fv.src) fv.src = fv.dataset.src; open('filmmodal'); try { fv.currentTime = 0; } catch (e) {} fv.play().catch(() => {}); }));
-  if ($('.film') && !RM) gsap.to('.film .fp', { scale: 1, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.film', start: 'top bottom', end: 'bottom top', scrub: true } });
+  if ($('.film') && !RM && !PORT) gsap.to('.film .fp', { scale: 1, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.film', start: 'top bottom', end: 'bottom top', scrub: true } });
 
   /* ---------- next-chapter banner ---------- */
-  $$('.nextch').forEach(n => { if (!RM) gsap.fromTo(n.querySelector('img'), { yPercent: -10 }, { yPercent: 10, ease: 'none', scrollTrigger: { trigger: n, start: 'top bottom', end: 'bottom top', scrub: true } }); });
+  $$('.nextch').forEach(n => { if (!RM && !PORT) gsap.fromTo(n.querySelector('img'), { yPercent: -10 }, { yPercent: 10, ease: 'none', scrollTrigger: { trigger: n, start: 'top bottom', end: 'bottom top', scrub: true } }); });
 
   /* ---------- closing film ---------- */
   const cv = $('#closeV');
