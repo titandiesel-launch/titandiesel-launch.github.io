@@ -344,6 +344,11 @@ body.loading{overflow:hidden}
 }
 
 
+/* hero: when the teaser lands on the logo, the title steps aside */
+.hero .hfade{transition:opacity .8s var(--ease)}
+.hero .shade{transition:opacity .8s var(--ease)}
+.hero.endc .hfade{opacity:0}
+.hero.endc .shade{opacity:0}
 /* ---------- multi-page ---------- */
 .curtain{position:fixed;inset:0;z-index:150;background:var(--bg);display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .55s var(--ease)}
 .curtain svg{width:min(420px,70vw);height:60px;overflow:visible}

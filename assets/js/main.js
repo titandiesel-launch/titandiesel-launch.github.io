@@ -70,7 +70,10 @@
       if (!PORT) gsap.to('.hero video, .hero .poster', { scale: 1.12, yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
       gsap.to('.hero .in', { opacity: 0, y: -60, ease: 'none', scrollTrigger: { trigger: '.hero', start: '30% top', end: '90% top', scrub: true } });
     }
-    const hv = $('#heroV'); if (hv) hv.play().catch(() => {});
+    const hv = $('#heroV'), hero = $('.hero');
+    if (hv) { hv.play().catch(() => {});
+      /* the teaser ends on the Titan Diesel logo: clear the title and shade so the logo is never covered */
+      if (!PORT) hv.addEventListener('timeupdate', () => { hero.classList.toggle('endc', hv.duration && hv.currentTime > hv.duration - 3.1); }); }
   }
 
   /* ---------- page header ---------- */
