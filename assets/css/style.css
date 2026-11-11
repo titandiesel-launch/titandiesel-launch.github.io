@@ -55,15 +55,17 @@ section{position:relative}
 /* hero */
 .hero{height:100svh;min-height:620px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
 .hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,10,.55) 0%,rgba(6,8,10,0) 26%,rgba(6,8,10,0) 50%,rgba(6,8,10,.92) 100%)}
-.hero .in{position:relative;z-index:2;width:100%;padding:0 var(--pad) clamp(40px,8vh,90px)}
-.hero .kick{font:600 12px/1 Unb;letter-spacing:.24em;text-transform:uppercase;color:#cfd6d9;margin-bottom:22px}
-.hero h1{font-size:clamp(46px,9.4vw,168px);line-height:.92;max-width:12ch}
-.hero h1 .l{display:block;overflow:hidden}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,10,.5) 0%,rgba(6,8,10,0) 16%,rgba(6,8,10,0) 68%,rgba(6,8,10,.85) 100%)}
+.hero .in{position:relative;z-index:2;width:100%;padding:0 var(--pad) clamp(28px,5vh,56px)}
+.hero .hfade{display:grid;grid-template-columns:1fr auto;grid-template-areas:"kick row" "h1 row";column-gap:60px;align-items:end}
+.hero .hfade .kick{grid-area:kick}.hero .hfade h1{grid-area:h1}.hero .hfade .row{grid-area:row}
+.hero .kick{font:600 11px/1 Unb;letter-spacing:.24em;text-transform:uppercase;color:#cfd6d9;margin-bottom:14px}
+.hero h1{font-size:clamp(34px,3.9vw,66px);line-height:1;max-width:none;white-space:nowrap}
+.hero h1 .l{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.06em}.hero h1 .l+.l{margin-left:.28em}
 .hero h1 .l span{display:inline-block}
 .hero h1 em{font-style:normal;color:var(--pulse);text-shadow:0 0 40px rgba(95,240,200,.35)}
-.hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:30px;flex-wrap:wrap}
-.hero .row p{max-width:46ch;color:#cfd6d9;font-size:clamp(15px,1.25vw,18px)}
+.hero .row{display:flex;flex-direction:column;align-items:flex-end;gap:18px;margin-top:0}
+.hero .row p{max-width:38ch;color:#cfd6d9;font-size:clamp(13.5px,1vw,15.5px);text-align:right}
 .scroll{display:flex;align-items:center;gap:12px;font:600 11px Unb;letter-spacing:.2em;color:#cfd6d9}
 .scroll i{width:1px;height:46px;background:linear-gradient(#fff,transparent);animation:sc 1.8s var(--ease) infinite;transform-origin:top}
 @keyframes sc{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
@@ -451,7 +453,11 @@ body.loading{overflow:hidden}
   .hero .poster{display:none}
   .hero .shade{background:linear-gradient(180deg,rgba(6,8,10,0) 0%,rgba(6,8,10,0) 30%,var(--bg) 46%)}
   .hero .in{padding-top:34px;padding-bottom:50px}
-  .hero h1{font-size:clamp(46px,13vw,90px)}
+  .hero .hfade{display:block}
+  .hero h1 .l{display:block}.hero h1 .l+.l{margin-left:0}
+  .hero h1{font-size:clamp(40px,11.5vw,80px);white-space:normal;line-height:.95}
+  .hero .kick{margin-bottom:20px}
+  .hero .row{align-items:flex-start;margin-top:24px}.hero .row p{text-align:left;max-width:none;font-size:15px}
 
   .stage{display:flex;flex-direction:column;justify-content:center;background:var(--bg)}
   .stage video{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;flex:none;display:none;transform:none}
